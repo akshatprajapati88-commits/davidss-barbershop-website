@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David's Barbershop — 194 Court St, Brooklyn</title>
+<meta name="description" content="Family-owned barbershop on Court Street in Brooklyn. Haircuts and scissor cuts since 2005. 4.9 stars from 440 Google reviews." />
+<meta name="theme-color" content="#0a0a0b" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,800;1,6..96,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#08080a;
+    --ink-2:#0f0f12;
+    --panel:#141417;
+    --line:rgba(233,220,193,.14);
+    --cream:#f3ece1;
+    --muted:#a49d92;
+    --gold:#d8b25f;
+    --gold-soft:#f0dba7;
+    --red:#a8342b;
+    --blue:#2a4a78;
+    --serif:"Bodoni Moda", Didot, "Times New Roman", serif;
+    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--cream);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 78% 8%, rgba(216,178,95,.14), transparent 70%),
+      radial-gradient(45% 40% at 6% 42%, rgba(42,74,120,.18), transparent 72%),
+      radial-gradient(70% 60% at 50% 110%, rgba(168,52,43,.14), transparent 70%);
+  }
+  .grain{
+    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.35; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  }
+  ::selection{background:rgba(216,178,95,.3); color:#fff}
+  a{color:inherit; text-decoration:none}
+  img,canvas{display:block; max-width:100%}
+  h1,h2,h3{font-family:var(--serif); font-weight:600; line-height:1.03; letter-spacing:-.02em; margin:0}
+  h1 em, h2 em{font-style:italic; color:var(--gold-soft)}
+  p{margin:0}
+  .wrap{width:min(1180px, 100% - 2.6rem); margin-inline:auto; position:relative; z-index:2}
+  .eyebrow{
+    display:flex; align-items:center; gap:.7rem;
+    font-size:.7rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  .eyebrow::before{content:""; width:34px; height:1px; background:linear-gradient(90deg,var(--gold),transparent)}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; gap:1.4rem;
+    padding:1.05rem clamp(1rem,3vw,2.2rem);
+    transition:background .45s ease, backdrop-filter .45s ease, border-color .45s ease, padding .45s ease;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{
+    background:rgba(8,8,10,.72); backdrop-filter:blur(16px) saturate(140%);
+    border-bottom-color:var(--line); padding-top:.7rem; padding-bottom:.7rem;
+  }
+  .brand{display:flex; align-items:center; gap:.7rem; margin-right:auto}
+  .brand-mark{
+    width:38px; height:38px; display:grid; place-items:center; flex:none;
+    border:1px solid rgba(216,178,95,.5); border-radius:50%;
+    font-family:var(--serif); font-size:1.05rem; color:var(--gold-soft);
+    background:radial-gradient(circle at 30% 25%, rgba(216,178,95,.22), transparent 70%);
+  }
+  .brand-text{display:flex; flex-direction:column; line-height:1.15; font-family:var(--serif); font-size:1.02rem; letter-spacing:.01em}
+  .brand-text small{font-family:var(--sans); font-size:.58rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); margin-top:.2rem}
+  .nav-links{display:flex; gap:1.5rem; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+  .nav-links a{position:relative; padding:.2rem 0; transition:color .25s}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--gold); transition:width .3s ease}
+  .nav-links a:hover{color:var(--cream)}
+  .nav-links a:hover::after{width:100%}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    padding:.8rem 1.4rem; border-radius:999px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+    font-weight:500; border:1px solid transparent; cursor:pointer; transition:transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-gold{
+    color:#1a1408;
+    background:linear-gradient(160deg,#f4e0b0,#d8b25f 55%,#b8913f);
+    box-shadow:0 10px 30px -14px rgba(216,178,95,.8), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .btn-ghost{border-color:rgba(233,220,193,.28); color:var(--cream); background:rgba(255,255,255,.03)}
+  .btn-ghost:hover{border-color:rgba(216,178,95,.7); background:rgba(216,178,95,.08)}
+  .nav-call{padding:.62rem 1.1rem}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:2;
+    min-height:100svh; display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(1rem,4vw,3rem);
+    align-items:center; padding:clamp(6.5rem,10vh,9rem) 0 clamp(3rem,7vh,5rem);
+  }
+  .hero-copy{max-width:36rem}
+  .rating{display:flex; align-items:center; gap:.55rem; font-size:.82rem; color:var(--muted); margin-bottom:1.4rem}
+  .stars{color:var(--gold); letter-spacing:.12em; font-size:.95rem}
+  .rating strong{color:var(--cream); font-weight:500}
+  .hero h1{font-size:clamp(2.9rem,6.2vw,5.1rem); letter-spacing:-.035em}
+  .hero h1 .line{display:block}
+  .lede{color:#c3bcb1; font-size:clamp(.98rem,1.25vw,1.08rem); margin-top:1.5rem; max-width:31rem}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2.1rem}
+  .hero-actions .btn{padding:.95rem 1.6rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; margin-top:2.4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .hero-meta span{display:flex; align-items:center; gap:.5rem}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px var(--gold)}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:.5rem; margin-top:1.5rem;
+    padding:.42rem .85rem .42rem .6rem; border-radius:999px;
+    border:1px solid rgba(216,178,95,.32); background:rgba(216,178,95,.08);
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft);
+  }
+  .pulse{width:7px;height:7px;border-radius:50%;background:#6fd08a;box-shadow:0 0 0 0 rgba(111,208,138,.6);animation:pulse 2.4s infinite}
+  .pulse.closed{background:#d07a6f; box-shadow:0 0 0 0 rgba(208,122,111,.55)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(111,208,138,.55)}70%{box-shadow:0 0 0 9px rgba(111,208,138,0)}100%{box-shadow:0 0 0 0 rgba(111,208,138,0)}}
+
+  .hero-stage{position:relative; height:clamp(380px,58vh,600px); perspective:1200px}
+  #scene{position:absolute; inset:0; width:100%; height:100%}
+  .stage-glow{
+    position:absolute; inset:8% 6%; border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle at 50% 50%, rgba(216,178,95,.22), rgba(216,178,95,.05) 45%, transparent 70%);
+    filter:blur(18px);
+  }
+  .stage-ring{
+    position:absolute; left:50%; bottom:6%; translate:-50% 0;
+    width:min(74%,320px); aspect-ratio:1/0.22; border-radius:50%;
+    border:1px solid rgba(216,178,95,.22);
+    background:radial-gradient(ellipse at 50% 50%, rgba(216,178,95,.12), transparent 70%);
+  }
+  /* CSS fallback pole (shown if WebGL / three.js unavailable) */
+  .pole-fallback{
+    position:absolute; left:50%; top:50%; translate:-50% -50%; width:96px; height:300px; border-radius:48px;
+    background:repeating-linear-gradient(-32deg, #f3ece1 0 14px, #a8342b 14px 30px, #f3ece1 30px 46px, #2a4a78 46px 62px);
+    box-shadow:inset -18px 0 34px rgba(0,0,0,.45), inset 14px 0 22px rgba(255,255,255,.5), 0 40px 70px -30px rgba(0,0,0,.9);
+    animation:poleSpin 3.2s linear infinite;
+    border-top:14px solid #d8b25f; border-bottom:14px solid #d8b25f;
+  }
+  @keyframes poleSpin{from{background-position:0 0}to{background-position:0 62px}}
+  body.webgl .pole-fallback{display:none}
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    position:relative; z-index:2; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:rgba(20,20,23,.5); overflow:hidden; padding:.85rem 0;
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .marquee-track{display:flex; width:max-content; animation:slide 46s linear infinite; gap:2.2rem}
+  .marquee-track span{font-family:var(--serif); font-size:.95rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(243,236,225,.62); white-space:nowrap; display:flex; align-items:center; gap:2.2rem}
+  .marquee-track span::after{content:"✦"; color:var(--gold); font-size:.7rem}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* ---------- sections ---------- */
+  section{position:relative; z-index:2}
+  .band{padding:clamp(4.5rem,9vh,7.5rem) 0}
+  .band-head{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:1.4rem; margin-bottom:clamp(2rem,4vw,3.2rem)}
+  .band-head h2{font-size:clamp(2.1rem,4.4vw,3.5rem); max-width:20ch}
+  .band-head p{color:var(--muted); max-width:34ch; font-size:.95rem}
+
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+  .card{
+    position:relative; padding:1.7rem 1.5rem 1.9rem; border-radius:18px;
+    border:1px solid var(--line);
+    background:linear-gradient(165deg, rgba(28,28,32,.85), rgba(14,14,17,.75));
+    transform-style:preserve-3d; transition:border-color .4s, box-shadow .4s;
+    box-shadow:0 24px 60px -46px rgba(0,0,0,1);
+  }
+  .card::after{
+    content:""; position:absolute; inset:0; border-radius:18px; pointer-events:none;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(216,178,95,.16), transparent 55%);
+    opacity:0; transition:opacity .4s;
+  }
+  .card:hover{border-color:rgba(216,178,95,.4); box-shadow:0 30px 70px -40px rgba(216,178,95,.35)}
+  .card:hover::after{opacity:1}
+  .card-num{font-family:var(--serif); font-size:.8rem; letter-spacing:.2em; color:var(--gold); display:block; margin-bottom:1.5rem}
+  .card h3{font-size:1.32rem; margin-bottom:.65rem}
+  .card p{color:#b3aca2; font-size:.92rem}
+  .icon{
+    width:44px; height:44px; border-radius:13px; display:grid; place-items:center; margin-bottom:1.3rem;
+    border:1px solid rgba(216,178,95,.3); background:rgba(216,178,95,.08); color:var(--gold-soft);
+    transform:translateZ(30px);
+  }
+  .icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.4}
+
+  /* services */
+  .services{display:grid; grid-template-columns:repeat(2,1fr); gap:1.1rem}
+  .service{
+    position:relative; overflow:hidden; border-radius:22px; padding:clamp(1.8rem,3vw,2.6rem);
+    border:1px solid var(--line); background:linear-gradient(150deg, rgba(32,32,37,.9), rgba(13,13,16,.9));
+    transform-style:preserve-3d; transition:border-color .4s, box-shadow .4s;
+  }
+  .service:hover{border-color:rgba(216,178,95,.45); box-shadow:0 40px 80px -50px rgba(216,178,95,.4)}
+  .service .sheen{
+    position:absolute; inset:-40% -10% auto auto; width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(216,178,95,.22), transparent 65%); filter:blur(6px); pointer-events:none;
+  }
+  .service h3{font-size:clamp(1.6rem,2.6vw,2.1rem); margin-bottom:.7rem}
+  .service p{color:#b3aca2; max-width:32ch}
+  .service .tag{
+    display:inline-flex; margin-top:1.5rem; padding:.35rem .8rem; border-radius:999px; font-size:.66rem;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--gold-soft); border:1px solid rgba(216,178,95,.3);
+  }
+  .service .big-letter{
+    position:absolute; right:1rem; bottom:-1.2rem; font-family:var(--serif); font-size:9rem; line-height:1;
+    color:rgba(243,236,225,.045); pointer-events:none;
+  }
+
+  /* hours */
+  .hours-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(1.4rem,4vw,3rem); align-items:start}
+  .hours-card{padding:clamp(1.4rem,2.6vw,2rem); border-radius:22px; border:1px solid var(--line); background:rgba(16,16,19,.7)}
+  .hours-row{display:flex; justify-content:space-between; gap:1rem; padding:.78rem .2rem; border-bottom:1px solid rgba(233,220,193,.08); font-size:.92rem; color:#b7b0a6}
+  .hours-row:last-child{border-bottom:0}
+  .hours-row .day{color:var(--cream)}
+  .hours-row.today{position:relative; color:var(--cream)}
+  .hours-row.today .day::after{content:"today"; margin-left:.55rem; font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); vertical-align:middle}
+  .hours-row.closed .time{color:#8d7f78}
+  .hours-note{margin-top:1.1rem; font-size:.78rem; color:var(--muted); display:flex; gap:.55rem}
+  .hours-copy h3{font-size:clamp(1.5rem,2.6vw,2rem); margin-bottom:.9rem}
+  .hours-copy p{color:#b3aca2; max-width:32ch; font-size:.95rem}
+
+  /* reviews */
+  .reviews{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+  .review{
+    padding:1.7rem 1.5rem; border-radius:18px; border:1px solid var(--line);
+    background:linear-gradient(170deg, rgba(26,26,30,.8), rgba(12,12,15,.75));
+    display:flex; flex-direction:column; gap:1rem; transition:transform .45s ease, border-color .45s;
+  }
+  .review:hover{transform:translateY(-6px); border-color:rgba(216,178,95,.35)}
+  .review .stars{font-size:.8rem}
+  .review blockquote{margin:0; font-family:var(--serif); font-size:1.12rem; line-height:1.45; color:#eee6da; font-style:italic}
+  .review figcaption{font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-top:auto}
+  .score{display:flex; align-items:baseline; gap:.8rem; margin-bottom:1.6rem}
+  .score .n{font-family:var(--serif); font-size:clamp(3rem,6vw,4.4rem); line-height:1; color:var(--gold-soft)}
+  .score small{color:var(--muted); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase}
+
+  /* visit */
+  .visit{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.2rem,3vw,2.4rem); align-items:stretch}
+  .visit-card{
+    padding:clamp(1.6rem,3vw,2.4rem); border-radius:24px; border:1px solid var(--line);
+    background:linear-gradient(160deg, rgba(30,30,35,.85), rgba(12,12,15,.85));
+    display:flex; flex-direction:column; gap:.2rem;
+  }
+  .visit-card .label{font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); margin-top:1.5rem}
+  .visit-card .label:first-child{margin-top:0}
+  .visit-card .value{font-family:var(--serif); font-size:clamp(1.05rem,2vw,1.35rem); color:var(--cream); margin-top:.25rem}
+  .visit-card a.value:hover{color:var(--gold-soft)}
+  .visit-actions{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.8rem}
+  .map{
+    position:relative; border-radius:24px; overflow:hidden; border:1px solid var(--line); min-height:340px;
+    background:
+      linear-gradient(115deg, transparent 46%, rgba(216,178,95,.09) 46.4%, rgba(216,178,95,.09) 48%, transparent 48.4%),
+      repeating-linear-gradient(0deg, rgba(233,220,193,.06) 0 1px, transparent 1px 46px),
+      repeating-linear-gradient(90deg, rgba(233,220,193,.06) 0 1px, transparent 1px 46px),
+      radial-gradient(circle at 60% 45%, rgba(42,74,120,.28), rgba(10,10,12,.95) 68%);
+  }
+  .map::before{
+    content:""; position:absolute; left:-10%; right:-10%; top:56%; height:26px;
+    background:rgba(233,220,193,.09); rotate:-9deg;
+    box-shadow:0 -34px 0 -12px rgba(233,220,193,.05), 0 40px 0 -12px rgba(233,220,193,.05);
+  }
+  .map .street{
+    position:absolute; left:8%; top:44%; rotate:-9deg; font-size:.64rem; letter-spacing:.3em;
+    text-transform:uppercase; color:rgba(243,236,225,.5);
+  }
+  .pin{position:absolute; left:57%; top:44%; translate:-50% -100%; display:grid; place-items:center}
+  .pin-dot{
+    width:15px; height:15px; border-radius:50%; background:var(--gold); position:relative; z-index:2;
+    box-shadow:0 0 0 6px rgba(216,178,95,.2), 0 0 24px rgba(216,178,95,.8);
+  }
+  .pin-halo{
+    position:absolute; width:90px; height:90px; border-radius:50%; border:1px solid rgba(216,178,95,.4);
+    animation:halo 3s ease-out infinite;
+  }
+  @keyframes halo{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+  .map-plate{
+    position:absolute; left:1rem; bottom:1rem; right:1rem; padding:.85rem 1rem; border-radius:14px;
+    background:rgba(8,8,10,.72); backdrop-filter:blur(12px); border:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; gap:1rem; font-size:.8rem; color:#cfc7ba;
+  }
+  .map-plate strong{display:block; font-family:var(--serif); font-size:.98rem; color:var(--cream); font-weight:600}
+  .map-plate .go{font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-soft); white-space:nowrap}
+
+  /* footer */
+  footer{position:relative; z-index:2; border-top:1px solid var(--line); padding:2.6rem 0 3rem; margin-top:clamp(2rem,5vh,4rem)}
+  .foot{display:flex; flex-wrap:wrap; gap:1.4rem; justify-content:space-between; align-items:center; color:var(--muted); font-size:.78rem}
+  .foot .brand-mark{width:32px;height:32px;font-size:.9rem}
+  .foot-links{display:flex; gap:1.4rem; flex-wrap:wrap}
+  .foot-links a:hover{color:var(--gold-soft)}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .9s cubic-bezier(.22,.7,.3,1), transform .9s cubic-bezier(.22,.7,.3,1)}
+  .reveal.in{opacity:1; transform:none}
+  .reveal[data-d="1"]{transition-delay:.09s}
+  .reveal[data-d="2"]{transition-delay:.18s}
+  .reveal[data-d="3"]{transition-delay:.27s}
+
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr; min-height:auto; padding-top:6.4rem}
+    .hero-stage{order:-1; height:clamp(300px,44vh,420px)}
+    .hero-copy{max-width:none}
+    .cards,.reviews{grid-template-columns:1fr 1fr}
+    .hours-grid,.visit{grid-template-columns:1fr}
+    .nav-links{display:none}
+  }
+  @media (max-width:640px){
+    .cards,.reviews,.services{grid-template-columns:1fr}
+    .band{padding:3.6rem 0}
+    .hero-meta{gap:.4rem 1rem; font-size:.7rem}
+    .map{min-height:280px}
+    .foot{flex-direction:column; align-items:flex-start}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important}
+    html{scroll-behavior:auto}
+    .reveal{opacity:1; transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="David's Barbershop home">
+    <span class="brand-mark">D</span>
+    <span class="brand-text">David's<small>Barbershop · Est. 2005</small></span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#about">What to know</a>
+    <a href="#services">Services</a>
+    <a href="#hours">Hours</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <a class="btn btn-gold nav-call" href="tel:+17186433930">Call</a>
+</header>
+
+<section class="hero wrap" id="top">
+  <div class="hero-copy">
+    <div class="rating reveal in">
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <strong>4.9</strong>
+      <span>· 440 reviews</span>
+    </div>
+    <h1 class="reveal in">
+      <span class="line">Brooklyn's</span>
+      <span class="line">sharpest cut</span>
+      <span class="line"><em>since 2005.</em></span>
+    </h1>
+    <p class="lede reveal in" data-d="1">
+      A family-run barbershop on Court Street. The same brothers have been taking their
+      time with every head of hair here for two decades — detail and precision, at a fair price.
+    </p>
+    <div class="status-pill reveal in" data-d="1">
+      <span class="pulse" id="statusDot"></span>
+      <span id="statusText">Open · Closes 7 PM</span>
+    </div>
+    <div class="hero-actions reveal in" data-d="2">
+      <a class="btn btn-gold" href="tel:+17186433930">Call +1 718-643-3930</a>
+      <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=David%27s+Barbershop+194+Court+St+Brooklyn+NY+11201" target="_blank" rel="noopener">Get directions</a>
+    </div>
+    <div class="hero-meta reveal in" data-d="3">
+      <span><i class="dot"></i> Haircut &amp; scissor cut</span>
+      <span><i class="dot"></i> 194 Court St, Brooklyn</span>
+      <span><i class="dot"></i> Walk-ins welcome</span>
+    </div>
+  </div>
+
+  <div class="hero-stage" aria-hidden="true">
+    <div class="stage-glow"></div>
+    <div class="pole-fallback"></div>
+    <canvas id="scene"></canvas>
+    <div class="stage-ring"></div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Haircut</span><span>Scissor Cut</span><span>Family Owned</span><span>Since 2005</span><span>Court Street</span><span>Walk-ins Welcome</span>
+    <span>Haircut</span><span>Scissor Cut</span><span>Family Owned</span><span>Since 2005</span><span>Court Street</span><span>Walk-ins Welcome</span>
+  </div>
+</div>
+
+<section class="band wrap" id="about">
+  <div class="band-head">
+    <div>
+      <div class="eyebrow reveal">What to know</div>
+      <h2 class="reveal" data-d="1" style="margin-top:1rem">Three brothers,<br>one standard.</h2>
+    </div>
+    <p class="reveal" data-d="2">Efficient, unpretentious, and quietly excellent — the kind of shop a neighbourhood builds a habit around.</p>
+  </div>
+  <div class="cards">
+    <article class="card reveal tilt">
+      <span class="card-num">01</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/></svg></div>
+      <h3>Family-owned</h3>
+      <p>Run by a team of experienced brothers who take their time with detail and precision. Twenty years of long-term local trust, built one haircut at a time.</p>
+    </article>
+    <article class="card reveal tilt" data-d="1">
+      <span class="card-num">02</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+      <h3>Open seven days</h3>
+      <p>Eight in the morning to seven at night, Monday through Friday and all day Sunday. The only day the door is shut is Saturday.</p>
+    </article>
+    <article class="card reveal tilt" data-d="2">
+      <span class="card-num">03</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 15.5 14.5 5a3 3 0 0 1 4.2 4.2L8.2 19.7a3.4 3.4 0 0 1-4.8-4.8Z"/><circle cx="7" cy="17" r="1.1"/></svg></div>
+      <h3>Honest prices</h3>
+      <p>Quality haircuts at reasonable prices. No upsell, no theatre — just a great cut for a great price, the thing reviewers mention most.</p>
+    </article>
+  </div>
+</section>
+
+<section class="band wrap" id="services">
+  <div class="band-head">
+    <div>
+      <div class="eyebrow reveal">Services</div>
+      <h2 class="reveal" data-d="1" style="margin-top:1rem">Two things,<br>done properly.</h2>
+    </div>
+    <p class="reveal" data-d="2">Clipper or scissors, in and out with a clean shape. Ask for what you want — they'll take the time to get it right.</p>
+  </div>
+  <div class="services">
+    <article class="service reveal tilt">
+      <div class="sheen"></div>
+      <span class="big-letter">H</span>
+      <h3>Haircut</h3>
+      <p>The house cut. A proper shape-up, blended and finished by hand — the reason Court Street keeps coming back.</p>
+      <span class="tag">Everyday favourite</span>
+    </article>
+    <article class="service reveal tilt" data-d="1">
+      <div class="sheen"></div>
+      <span class="big-letter">S</span>
+      <h3>Scissor cut</h3>
+      <p>Slower, softer, more controlled. Scissor-over-comb work for length, texture and a cut that grows out clean.</p>
+      <span class="tag">By request</span>
+    </article>
+  </div>
+</section>
+
+<section class="band wrap" id="hours">
+  <div class="hours-grid">
+    <div class="reveal">
+      <div class="eyebrow">Hours</div>
+      <div class="hours-copy" style="margin-top:1.2rem">
+        <h3>Early doors, late chairs.</h3>
+        <p>Long days, seven days a week — except Saturday, when the shop rests.</p>
+      </div>
+      <div class="hours-note">
+        <span style="color:var(--gold)">✦</span>
+        <span>Hours as listed on the shop's Google profile. Worth a call ahead on Sundays.</span>
+      </div>
+    </div>
+    <div class="hours-card reveal" data-d="1" id="hoursCard">
+      <div class="hours-row" data-day="1"><span class="day">Monday</span><span class="time">8:00 AM – 7:00 PM</span></div>
+      <div class="hours-row" data-day="2"><span class="day">Tuesday</span><span class="time">8:00 AM – 7:00 PM</span></div>
+      <div class="hours-row" data-day="3"><span class="day">Wednesday</span><span class="time">8:00 AM – 7:00 PM</span></div>
+      <div class="hours-row" data-day="4"><span class="day">Thursday</span><span class="time">8:00 AM – 7:00 PM</span></div>
+      <div class="hours-row" data-day="5"><span class="day">Friday</span><span class="time">8:00 AM – 7:00 PM</span></div>
+      <div class="hours-row closed" data-day="6"><span class="day">Saturday</span><span class="time">Closed</span></div>
+      <div class="hours-row" data-day="0"><span class="day">Sunday</span><span class="time">8:00 AM – 7:00 PM</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band wrap" id="reviews">
+  <div class="band-head">
+    <div>
+      <div class="eyebrow reveal">Reviews</div>
+      <h2 class="reveal" data-d="1" style="margin-top:1rem">4.9 out of 5,<br>440 times over.</h2>
+    </div>
+    <div class="reveal" data-d="2">
+      <div class="score">
+        <span class="n">4.9</span>
+        <span><span class="stars">★★★★★</span><br><small>440 Google reviews</small></span>
+      </div>
+      <p style="color:var(--muted); font-size:.92rem; max-width:32ch">"Efficient barber shop providing quality haircuts at reasonable prices."</p>
+    </div>
+  </div>
+  <div class="reviews">
+    <figure class="review reveal">
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <blockquote>"Fantastic service, friendly staff, and a great haircut for a great price."</blockquote>
+      <figcaption>Google review</figcaption>
+    </figure>
+    <figure class="review reveal" data-d="1">
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <blockquote>"David, Rafael and family deliver high quality hair cuts at reasonable prices."</blockquote>
+      <figcaption>Google review</figcaption>
+    </figure>
+    <figure class="review reveal" data-d="2">
+      <span class="stars" aria-hidden="true">★★★★★</span>
+      <blockquote>"Efficient barber shop providing quality haircuts at reasonable prices."</blockquote>
+      <figcaption>Google review summary</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band wrap" id="visit">
+  <div class="band-head">
+    <div>
+      <div class="eyebrow reveal">Visit</div>
+      <h2 class="reveal" data-d="1" style="margin-top:1rem">Court Street,<br>Brooklyn.</h2>
+    </div>
+    <p class="reveal" data-d="2">Just off Atlantic — walk in, take a seat, and leave sharper than you came.</p>
+  </div>
+  <div class="visit">
+    <div class="visit-card reveal">
+      <span class="label">Address</span>
+      <span class="value">194 Court St, Brooklyn, NY 11201</span>
+      <span class="label">Phone</span>
+      <a class="value" href="tel:+17186433930">+1 718-643-3930</a>
+      <span class="label">Today</span>
+      <span class="value" id="todayLine">8:00 AM – 7:00 PM</span>
+      <div class="visit-actions">
+        <a class="btn btn-gold" href="tel:+17186433930">Call the shop</a>
+        <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=David%27s+Barbershop+194+Court+St+Brooklyn+NY+11201" target="_blank" rel="noopener">Directions</a>
+      </div>
+    </div>
+    <a class="map reveal" data-d="1" href="https://www.google.com/maps/search/?api=1&query=David%27s+Barbershop+194+Court+St+Brooklyn+NY+11201" target="_blank" rel="noopener" aria-label="Open David's Barbershop in Google Maps">
+      <span class="street">Court St · Brooklyn</span>
+      <span class="pin"><span class="pin-halo"></span><span class="pin-dot"></span></span>
+      <span class="map-plate">
+        <span><strong>David's Barbershop</strong>194 Court St, Brooklyn, NY 11201</span>
+        <span class="go">Open in Maps →</span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div style="display:flex; align-items:center; gap:.7rem">
+      <span class="brand-mark">D</span>
+      <span>David's Barbershop · 194 Court St, Brooklyn NY 11201</span>
+    </div>
+    <div class="foot-links">
+      <a href="tel:+17186433930">+1 718-643-3930</a>
+      <a href="#services">Services</a>
+      <a href="#hours">Hours</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+
+<script type="module">
+/* ---------------- hours / open status ---------------- */
+const SCHEDULE = { 0:[8,19], 1:[8,19], 2:[8,19], 3:[8,19], 4:[8,19], 5:[8,19], 6:null };
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const fmt = h => { const hh = h % 12 === 0 ? 12 : h % 12; return `${hh}:00 ${h < 12 ? 'AM' : 'PM'}`; };
+
+function updateStatus(){
+  const now = new Date();
+  const d = now.getDay();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  const today = SCHEDULE[d];
+  const dot = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  const line = document.getElementById('todayLine');
+  const row = document.querySelector(`.hours-row[data-day="${d}"]`);
+
+  document.querySelectorAll('.hours-row.today').forEach(r => r.classList.remove('today'));
+  if (row) row.classList.add('today');
+
+  if (line) line.textContent = today ? `${fmt(today[0])} – ${fmt(today[1])}` : 'Closed today';
+
+  if (today && mins >= today[0]*60 && mins < today[1]*60){
+    dot.classList.remove('closed');
+    text.textContent = `Open · Closes ${fmt(today[1])}`;
+  } else {
+    dot.classList.add('closed');
+    let next = null, nextDay = '';
+    if (today && mins < today[0]*60){ next = today; nextDay = 'today'; }
+    else {
+      for (let i = 1; i <= 7; i++){
+        const nd = (d + i) % 7;
+        if (SCHEDULE[nd]){
+          next = SCHEDULE[nd];
+          nextDay = i === 1 ? 'tomorrow' : DAYS[nd];
+          break;
+        }
+      }
+    }
+    text.textContent = next ? `Closed · Opens ${fmt(next[0])} ${nextDay}` : 'Closed';
+  }
+}
+updateStatus();
+setInterval(updateStatus, 60000);
+
+/* ---------------- nav + reveal ---------------- */
+const nav = document.getElementById('nav');
+const onScrollNav = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+onScrollNav();
+window.addEventListener('scroll', onScrollNav, { passive:true });
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold:.16, rootMargin:'0px 0px -8% 0px' });
+document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+
+/* ---------------- 3D tilt cards ---------------- */
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduce) {
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.style.transition = 'transform .5s cubic-bezier(.22,.7,.3,1), border-color .4s, box-shadow .4s';
+    card.addEventListener('pointermove', ev => {
+      const r = card.getBoundingClientRect();
+      const px = (ev.clientX - r.left) / r.width;
+      const py = (ev.clientY - r.top) / r.height;
+      card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * 8}deg) rotateY(${(px - 0.5) * 10}deg) translateY(-4px)`;
+      card.style.setProperty('--mx', `${px * 100}%`);
+      card.style.setProperty('--my', `${py * 100}%`);
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+}
+
+/* ---------------- WebGL barber pole ---------------- */
+(async () => {
+  const canvas = document.getElementById('scene');
+  if (!canvas) return;
+  let THREE;
+  try { THREE = await import('three'); }
+  catch (err) { return; } // CSS pole fallback stays visible
+
+  try {
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    document.body.classList.add('webgl');
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(0, 0.15, 8.2);
+
+    /* lights */
+    scene.add(new THREE.HemisphereLight(0xfff3dd, 0x0b0b12, 0.85));
+    const key = new THREE.DirectionalLight(0xfff1d6, 2.6); key.position.set(3.2, 4.4, 4); scene.add(key);
+    const rim = new THREE.DirectionalLight(0x88a6d8, 1.5); rim.position.set(-4, 1.6, -3); scene.add(rim);
+    const gold = new THREE.PointLight(0xffc46b, 30, 9, 2); gold.position.set(1.9, -1.6, 2.4); scene.add(gold);
+
+    /* striped texture for the pole */
+    function poleTexture(){
+      const c = document.createElement('canvas');
+      c.width = 512; c.height = 512;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#f4ede2'; ctx.fillRect(0, 0, 512, 512);
+      const band = (color, shift) => {
+        ctx.strokeStyle = color; ctx.lineWidth = 54; ctx.lineCap = 'butt';
+        ctx.beginPath();
+        for (let i = -700; i < 1300; i += 168){
+          ctx.moveTo(i + shift, -40);
+          ctx.lineTo(i + shift + 560, 552);
+        }
+        ctx.stroke();
+      };
+      band('#a8342b', 0);
+      band('#2a4a78', 76);
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.repeat.set(1, 1.6);
+      tex.anisotropy = 4;
+      return tex;
+    }
+
+    const pole = new THREE.Group();
+    scene.add(pole);
+
+    const body = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.62, 0.62, 3.1, 72, 1, true),
+      new THREE.MeshStandardMaterial({ map: poleTexture(), roughness:0.38, metalness:0.06 })
+    );
+    pole.add(body);
+
+    const glass = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.67, 0.67, 3.1, 72, 1, true),
+      new THREE.MeshPhysicalMaterial({
+        color:0xffffff, roughness:0.05, metalness:0, transparent:true,
+        opacity:0.13, transmission:0.9, side:THREE.DoubleSide, depthWrite:false
+      })
+    );
+    pole.add(glass);
+
+    const brass = new THREE.MeshStandardMaterial({ color:0xd9b45b, metalness:1, roughness:0.24 });
+    const darkBrass = new THREE.MeshStandardMaterial({ color:0x8a6d31, metalness:1, roughness:0.4 });
+
+    [1, -1].forEach(sign => {
+      const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.73, 0.73, 0.2, 72), brass);
+      cap.position.y = sign * 1.6;
+      pole.add(cap);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.72, 0.035, 16, 72), darkBrass);
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = sign * 1.47;
+      pole.add(ring);
+      const ball = new THREE.Mesh(new THREE.SphereGeometry(0.2, 32, 24), brass);
+      ball.position.y = sign * 1.86;
+      pole.add(ball);
+    });
+
+    /* floating rings */
+    const rings = [];
+    for (let i = 0; i < 3; i++){
+      const r = new THREE.Mesh(
+        new THREE.TorusGeometry(0.9 + i * 0.26, 0.016, 12, 120),
+        new THREE.MeshStandardMaterial({ color:0xd8b25f, metalness:1, roughness:0.3, transparent:true, opacity:0.55 })
+      );
+      r.rotation.x = Math.PI / 2.6 + i * 0.2;
+      r.rotation.y = i * 0.5;
+      r.position.y = -0.2 + i * 0.45;
+      pole.add(r);
+      rings.push(r);
+    }
+
+    /* dust particles */
+    const count = 220;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++){
+      const r = 1.6 + Math.random() * 3.2;
+      const a = Math.random() * Math.PI * 2;
+      positions[i*3]   = Math.cos(a) * r;
+      positions[i*3+1] = (Math.random() - 0.5) * 6;
+      positions[i*3+2] = Math.sin(a) * r * 0.6;
+    }
+    const dustGeo = new THREE.BufferGeometry();
+    dustGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
+      color:0xf0d69a, size:0.035, transparent:true, opacity:0.7,
+      sizeAttenuation:true, depthWrite:false, blending:THREE.AdditiveBlending
+    }));
+    scene.add(dust);
+
+    /* sizing */
+    const stage = canvas.parentElement;
+    function resize(){
+      const w = stage.clientWidth || 480;
+      const h = stage.clientHeight || 480;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      const narrow = w / h < 0.95;
+      pole.scale.setScalar(narrow ? 0.72 : 0.95);
+      pole.position.x = narrow ? 0 : 0.45;
+      camera.position.z = narrow ? 9.2 : 8.2;
+    }
+    resize();
+    new ResizeObserver(resize).observe(stage);
+
+    /* pointer + scroll parallax */
+    const target = { x:0, y:0 };
+    const current = { x:0, y:0 };
+    window.addEventListener('pointermove', e => {
+      target.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      target.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive:true });
+    let scrollTilt = 0;
+    window.addEventListener('scroll', () => { scrollTilt = Math.min(window.scrollY / 900, 1); }, { passive:true });
+
+    const clock = new THREE.Clock();
+    function frame(){
+      const t = clock.getElapsedTime();
+      const dt = Math.min(clock.getDelta(), 0.05);
+      current.x += (target.x - current.x) * 0.05;
+      current.y += (target.y - current.y) * 0.05;
+
+      if (!reduce){
+        pole.rotation.y = t * 0.55;
+        body.material.map.offset.y = -t * 0.12;
+        body.material.map.offset.x = t * 0.01;
+        dust.rotation.y = t * 0.05;
+      }
+      pole.rotation.x = 0.06 + current.y * 0.1 + scrollTilt * 0.12;
+      pole.rotation.z = current.x * -0.06;
+      camera.position.x = current.x * 0.35;
+      camera.position.y = 0.15 - current.y * 0.25;
+      camera.lookAt(0, 0, 0);
+
+      rings.forEach((r, i) => {
+        if (!reduce) r.position.y = -0.2 + i * 0.45 + Math.sin(t * 0.7 + i) * 0.09;
+      });
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(frame);
+    }
+    frame();
+  } catch (err) {
+    /* WebGL unavailable — keep the CSS pole */
+    document.body.classList.remove('webgl');
+  }
+})();
+</script>
+</body>
+</html>
